@@ -24,11 +24,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSString *auidoPath1 = [[NSBundle mainBundle] pathForResource:@"三全音" ofType:@"mp3"];
-    NSString *audioPath2 = [[NSBundle mainBundle] pathForResource:@"五环之歌" ofType:@"mp3"];
+    NSString *audioPath1 = [[NSBundle mainBundle] pathForResource:@"五环之歌" ofType:@"mp3"];
+    NSString *audioPath2 = [[NSBundle mainBundle] pathForResource:@"陈奕迅" ofType:@"mp3"];
     
-
-    AVURLAsset *audioAsset1 = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:auidoPath1]];
+    AVURLAsset *audioAsset1 = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:audioPath1]];
     AVURLAsset *audioAsset2 = [AVURLAsset assetWithURL:[NSURL fileURLWithPath:audioPath2]];
     
     AVMutableComposition *composition = [AVMutableComposition composition];
@@ -44,11 +43,14 @@
     
     // 音频合并 - 插入音轨文件
     [audioTrack1 insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioAsset1.duration) ofTrack:audioAssetTrack1 atTime:kCMTimeZero error:nil];
-    [audioTrack2 insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioAsset2.duration) ofTrack:audioAssetTrack2 atTime:kCMTimeZero error:nil];
+    // `startTime`参数要设置为第一段音频的时长，即`audioAsset1.duration`, 表示将第二段音频插入到第一段音频的尾部。
+    [audioTrack2 insertTimeRange:CMTimeRangeMake(kCMTimeZero, audioAsset2.duration) ofTrack:audioAssetTrack2 atTime:audioAsset1.duration error:nil];
     
-    // 合并后的文件导出 - 音频文件目前只找到合成m4a类型的
+    
+    // 合并后的文件导出 - `presetName`要和之后的`session.outputFileType`相对应。
     AVAssetExportSession *session = [[AVAssetExportSession alloc] initWithAsset:composition presetName:AVAssetExportPresetAppleM4A];
     NSString *outPutFilePath = [[self.filePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"xindong.m4a"];
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:outPutFilePath]) {
         [[NSFileManager defaultManager] removeItemAtPath:outPutFilePath error:nil];
     }
@@ -56,11 +58,18 @@
     // 查看当前session支持的fileType类型
     NSLog(@"---%@",[session supportedFileTypes]);
     session.outputURL = [NSURL fileURLWithPath:outPutFilePath];
-    session.outputFileType = AVFileTypeAppleM4A;
+    session.outputFileType = AVFileTypeAppleM4A; //与上述的`present`相对应
+    session.shouldOptimizeForNetworkUse = YES;   //优化网络
+    
     [session exportAsynchronouslyWithCompletionHandler:^{
-        NSLog(@"合并完成----%@", outPutFilePath);
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:outPutFilePath] error:nil];
-        [_player play];
+        if (session.status == AVAssetExportSessionStatusCompleted) {
+            NSLog(@"合并成功----%@", outPutFilePath);
+            _player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:outPutFilePath] error:nil];
+            [_player play];
+        } else {
+            // 其他情况, 具体请看这里`AVAssetExportSessionStatus`.
+        }
+        
     }];
     
 }

@@ -15,6 +15,7 @@
 		D8964ACA1D82852600F6563C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8964AC81D82852600F6563C /* LaunchScreen.storyboard */; };
 		D8964AD21D82853400F6563C /* 三全音.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8964AD11D82853400F6563C /* 三全音.mp3 */; };
 		D8964AD41D82853C00F6563C /* 五环之歌.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8964AD31D82853C00F6563C /* 五环之歌.mp3 */; };
+		D8FC0E581F161C0F0009CD6C /* 陈奕迅.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D8FC0E571F161C0F0009CD6C /* 陈奕迅.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D8964ACB1D82852600F6563C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8964AD11D82853400F6563C /* 三全音.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "三全音.mp3"; sourceTree = "<group>"; };
 		D8964AD31D82853C00F6563C /* 五环之歌.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "五环之歌.mp3"; sourceTree = "<group>"; };
+		D8FC0E571F161C0F0009CD6C /* 陈奕迅.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "陈奕迅.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				D8964AD11D82853400F6563C /* 三全音.mp3 */,
+				D8FC0E571F161C0F0009CD6C /* 陈奕迅.mp3 */,
 				D8964AD31D82853C00F6563C /* 五环之歌.mp3 */,
 				D8964ABD1D82852600F6563C /* AppDelegate.h */,
 				D8964ABE1D82852600F6563C /* AppDelegate.m */,
@@ -145,6 +148,7 @@
 				D8964ACA1D82852600F6563C /* LaunchScreen.storyboard in Resources */,
 				D8964AC71D82852600F6563C /* Assets.xcassets in Resources */,
 				D8964AC51D82852600F6563C /* Main.storyboard in Resources */,
+				D8FC0E581F161C0F0009CD6C /* 陈奕迅.mp3 in Resources */,
 				D8964AD21D82853400F6563C /* 三全音.mp3 in Resources */,
 				D8964AD41D82853C00F6563C /* 五环之歌.mp3 in Resources */,
 			);
@@ -308,6 +312,7 @@
 				D8964AD01D82852600F6563C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
